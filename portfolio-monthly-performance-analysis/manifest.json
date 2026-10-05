@@ -1,0 +1,60 @@
+{
+  "name": "portfolio-monthly-performance-analysis",
+  "version": "1.0.0",
+  "transferable": true,
+  "description": "Analyze monthly portfolio-company performance from CSV, calculate variances, assess materiality, and produce reconciled JSON results. Cross-platform skill for Claude Code, OpenAI Codex, and Snowflake Cortex Code.",
+  "author": "Anthropic",
+  "license": "Proprietary",
+  "schema_version": "1.0",
+  "platforms": {
+    "claude-code": {
+      "install_path": ".claude/skills/portfolio-monthly-performance-analysis",
+      "install_path_global": "~/.claude/skills/portfolio-monthly-performance-analysis",
+      "invocation": "natural_language"
+    },
+    "openai-codex": {
+      "install_path": ".codex/skills/portfolio-monthly-performance-analysis",
+      "install_path_global": "~/.codex-skills/portfolio-monthly-performance-analysis",
+      "invocation": "skill_name"
+    },
+    "snowflake-cortex-code": {
+      "install_path": ".cortex/skills/portfolio-monthly-performance-analysis",
+      "install_path_global": "~/.snowflake/cortex/skills/portfolio-monthly-performance-analysis",
+      "invocation": "skill_reference"
+    }
+  },
+  "entry_point": "scripts/run.py",
+  "dependencies": {
+    "python": ">=3.7",
+    "external_packages": []
+  },
+  "capabilities": {
+    "csv_validation": true,
+    "variance_analysis": true,
+    "materiality_assessment": true,
+    "evidence_classification": true,
+    "json_output": true,
+    "markdown_output": true
+  },
+  "required_files": [
+    "SKILL.md",
+    "scripts/run.py",
+    "scripts/core/validation.py",
+    "scripts/core/calculations.py",
+    "scripts/output/csv_io.py",
+    "schemas/input.schema.json",
+    "schemas/output.schema.json",
+    "references/input-schema.md",
+    "references/calculation-rules.md",
+    "references/materiality-rules.md",
+    "references/evidence-rules.md",
+    "references/results-contract.md"
+  ],
+  "keywords": [
+    "portfolio-analysis",
+    "financial-performance",
+    "variance-analysis",
+    "materiality",
+    "reconciliation"
+  ]
+}

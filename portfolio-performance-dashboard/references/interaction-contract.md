@@ -1,21 +1,9 @@
-# Interaction and Ask Codex contract
+# Interaction contract
 
-Keep filtering and selection local to the dashboard:
+Keep filtering and KPI selection local to the generated dashboard. The portable HTML must not depend on a vendor browser API to continue a chat or perform a write.
 
-- KPI group: all, financial, or operational.
-- Comparison: budget, prior month, prior year, current forecast, or investment case.
-- Material-only toggle.
-- Overview, Questions, and Actions tabs.
-- KPI row selection updates one detail panel.
+For an investigation action, construct a prompt containing company, period, selected KPI, actual and comparison values, supplied variance, materiality, favorability, evidence class, driver, evidence source, and management follow-up. Require the host agent to distinguish facts from missing, contradictory, and hypothetical evidence. Do not invent facts, actions, owners, dates, or investment recommendations.
 
-For an investigation action, call `window.openai.sendFollowUpMessage({ prompt, title })` when available. The prompt must include:
+The dashboard may copy this prompt locally. A host adapter may offer a native follow-up action only when that host supports it.
 
-- Company and reporting period.
-- Selected KPI, actual value, and selected comparison value.
-- Absolute and percentage, pp, or bps variance exactly as supplied.
-- Materiality and favorability.
-- Evidence class, driver, evidence source, and current management question.
-- A request to distinguish calculated facts from supported, missing, contradictory, or hypothetical evidence.
-- A prohibition on inventing drivers, values, actions, owners, dates, or investment recommendations.
-
-Label the action `Ask Codex to investigate <KPI>`. Provide separate collection-level actions only when useful, such as preparing a management agenda or reviewing action coverage. Never transmit raw CSV content when the reconciled KPI context is sufficient.
+For Blend publication, use the cross-host procedure in [blend-publishing.md](blend-publishing.md). The user supplies the slug and explicitly confirms before the adapter calls any MCP write tool.

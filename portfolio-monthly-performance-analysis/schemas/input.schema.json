@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Portfolio Monthly Performance Analysis - Input CSV",
+  "description": "Long-form CSV with one row per company/period/KPI",
+  "type": "object",
+  "properties": {
+    "required_columns": {
+      "type": "array",
+      "description": "All these columns must be present",
+      "items": {
+        "type": "string",
+        "enum": [
+          "company", "synthetic", "period", "kpi", "kpi_type", "actual", "budget",
+          "prior_month", "prior_year", "current_forecast", "original_investment_case",
+          "current_full_year_forecast", "original_investment_case_full_year",
+          "currency", "unit", "favorable_direction", "materiality_type",
+          "materiality_threshold", "management_driver", "evidence_source",
+          "management_action", "action_owner", "expected_completion_date"
+        ]
+      }
+    }
+  }
+}

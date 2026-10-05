@@ -36,3 +36,5 @@ Do not show unverified headline values. Show each mismatch, its KPI and field wh
 ## Visual language
 
 Use a quiet modern product surface with strong spacing, a neutral hierarchy, restrained accent color, and semantic favorable/unfavorable colors paired with text. Support light and dark appearance and widths from 320px to 1024px. Keep the full desktop view to one dominant variance section plus one detail panel; stack them on narrow screens.
+
+Match the fixed dark reference palette: deep navy surfaces, off-white text, periwinkle accents, coral unfavorable values, mint favorable values, and amber synthetic or warning labels. Evidence badges use periwinkle text on a dark indigo fill. Use off-white for every non-semantic text element—including metadata, field labels, inactive tabs, secondary descriptions, card labels, and “Evidence-backed commentary”—so no text relies on reduced opacity or a low-contrast gray.

@@ -1,0 +1,139 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Portfolio Monthly Performance Analysis - Results JSON",
+  "description": "Reconciled results contract (schema_version 1.0)",
+  "type": "object",
+  "required": ["schema_version", "status", "company", "period", "source", "validation", "reconciliation", "results"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Contract version"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["ready", "warning", "blocked", "empty"],
+      "description": "Analysis outcome: ready (success), warning (success with warnings), blocked (validation failed), empty (no rows for period)"
+    },
+    "synthetic": {
+      "type": ["boolean", "null"],
+      "description": "All rows synthetic (true/false) or null if validation failed"
+    },
+    "company": {
+      "type": ["string", "null"],
+      "description": "Analyzed company name or null if blocked/empty"
+    },
+    "period": {
+      "type": "string",
+      "pattern": "^\\d{4}-(0[1-9]|1[0-2])$",
+      "description": "Analysis period (YYYY-MM)"
+    },
+    "source": {
+      "type": "object",
+      "required": ["file", "row_count"],
+      "properties": {
+        "file": {
+          "type": "string",
+          "description": "Input CSV filename"
+        },
+        "row_count": {
+          "type": "integer",
+          "description": "Total rows in CSV (excluding header)"
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "required": ["status", "errors", "warnings"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["PASS", "FAIL"]
+        },
+        "errors": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Validation errors (block execution if non-empty)"
+        },
+        "warnings": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Data-quality warnings (allow execution, must be surfaced)"
+        }
+      }
+    },
+    "reconciliation": {
+      "type": "object",
+      "required": ["status", "mismatches"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["PASS", "FAIL", "NOT_RUN"]
+        },
+        "mismatches": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Reconciliation failures (empty if PASS)"
+        }
+      }
+    },
+    "results": {
+      "type": "array",
+      "description": "KPI results (empty only for blocked/empty status)",
+      "items": {
+        "type": "object",
+        "required": [
+          "kpi", "kpi_type", "actual", "currency", "unit", "direction",
+          "materiality_type", "materiality_threshold", "comparisons",
+          "full_year_forecast_revision", "evidence_class", "management_driver",
+          "evidence_source", "management_action", "action_owner",
+          "expected_completion_date"
+        ],
+        "properties": {
+          "kpi": { "type": "string" },
+          "kpi_type": { "type": "string", "enum": ["financial", "operational"] },
+          "actual": { "type": ["number", "null"] },
+          "currency": { "type": "string" },
+          "unit": { "type": "string" },
+          "direction": { "type": "string", "enum": ["higher_is_favorable", "lower_is_favorable", "neutral"] },
+          "materiality_type": { "type": "string", "enum": ["percent", "absolute", "bps"] },
+          "materiality_threshold": { "type": ["number", "null"] },
+          "comparisons": {
+            "type": "object",
+            "properties": {
+              "budget": { "$ref": "#/definitions/comparison" },
+              "prior_month": { "$ref": "#/definitions/comparison" },
+              "prior_year": { "$ref": "#/definitions/comparison" },
+              "current_forecast": { "$ref": "#/definitions/comparison" },
+              "original_investment_case": { "$ref": "#/definitions/comparison" }
+            }
+          },
+          "full_year_forecast_revision": { "$ref": "#/definitions/comparison" },
+          "evidence_class": {
+            "type": "string",
+            "enum": ["calculated_fact", "source_supported", "missing_evidence", "contradictory_evidence"]
+          },
+          "management_driver": { "type": "string" },
+          "evidence_source": { "type": "string" },
+          "management_action": { "type": "string" },
+          "action_owner": { "type": "string" },
+          "expected_completion_date": { "type": "string" }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "comparison": {
+      "type": ["object", "null"],
+      "properties": {
+        "comparison": { "type": ["number", "null"] },
+        "absolute_variance": { "type": ["number", "null"] },
+        "percentage_variance": { "type": ["number", "string"], "description": "Number or 'not_meaningful'" },
+        "percentage_point_difference": { "type": ["number", "null"], "description": "For % KPIs only" },
+        "basis_point_difference": { "type": ["number", "null"], "description": "For % KPIs only" },
+        "materiality": { "type": "string", "enum": ["material", "non_material", "not_assessable"] },
+        "favorability": { "type": "string", "enum": ["favorable", "unfavorable", "neutral", "not_assessable"] }
+      }
+    }
+  }
+}

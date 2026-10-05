@@ -1,0 +1,56 @@
+{
+  "name": "portfolio-performance-dashboard",
+  "version": "1.1.0",
+  "transferable": true,
+  "description": "Present reconciled monthly portfolio-company results as a platform-neutral dashboard and optional Blend share artifact.",
+  "author": "Anthropic",
+  "license": "Proprietary",
+  "schema_version": "1.0",
+  "platforms": {
+    "claude-code": {
+      "install_path": ".claude/skills/portfolio-performance-dashboard",
+      "install_path_global": "~/.claude/skills/portfolio-performance-dashboard",
+      "invocation": "natural_language"
+    },
+    "openai-codex": {
+      "install_path": ".codex/skills/portfolio-performance-dashboard",
+      "install_path_global": "~/.codex/skills/portfolio-performance-dashboard",
+      "invocation": "skill_name"
+    },
+    "snowflake-cortex-code": {
+      "install_path": ".cortex/skills/portfolio-performance-dashboard",
+      "install_path_global": "~/.snowflake/cortex/skills/portfolio-performance-dashboard",
+      "invocation": "skill_reference"
+    }
+  },
+  "entry_point": "scripts/render_dashboard.py",
+  "dependencies": {
+    "python": ">=3.7",
+    "external_packages": []
+  },
+  "capabilities": {
+    "json_input": true,
+    "dashboard_rendering": true,
+    "interactive_visualization": false,
+    "html_export": true,
+    "evidence_display": true
+  },
+  "required_files": [
+    "SKILL.md",
+    "scripts/render_dashboard.py",
+    "scripts/validate_dashboard_input.py",
+    "references/dashboard-input-schema.md",
+    "references/ui-states.md",
+    "references/interaction-contract.md",
+    "references/blend-publishing.md",
+    "references/host-adapters.md",
+    "scripts/publish_request.py"
+  ],
+  "keywords": [
+    "portfolio-dashboard",
+    "performance-visualization",
+    "interactive-analysis",
+    "reconciliation"
+  ],
+  "workflow_dependency": "portfolio-monthly-performance-analysis"
+}

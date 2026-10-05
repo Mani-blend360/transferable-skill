@@ -1,0 +1,26 @@
+schema_version: "1.0"
+
+# Materiality rules applied per-row from CSV; these values document
+# common patterns but CSV materiality_threshold is always authoritative.
+materiality_rules:
+  absolute_example: "absolute USD variance ≥ this amount"
+  percent_example: "percentage variance magnitude ≥ this percentage"
+  bps_example: "basis-point difference magnitude ≥ this basis-point value"
+
+# Evidence classification keywords for contradictory_evidence detection.
+evidence_classification:
+  up_words:
+    - "increase"
+    - "increased"
+    - "higher"
+    - "above"
+    - "grew"
+    - "growth"
+  down_words:
+    - "decrease"
+    - "decreased"
+    - "lower"
+    - "below"
+    - "fell"
+    - "decline"
+    - "declined"
