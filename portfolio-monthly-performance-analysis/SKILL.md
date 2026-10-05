@@ -91,7 +91,13 @@ An optional Markdown table with KPIs, actual, budget, variance, prior-month comp
 
 ## Agent Presentation Layer (After Files Are Generated)
 
-After `run.py` produces RESULTS.json and SCORECARD.md, **the agent interprets and presents findings** to the user with business context:
+After `run.py` produces RESULTS.json and SCORECARD.md, inspect `status` and `reconciliation.status` before presenting results:
+
+- When `status` is `ready` or `warning` and `reconciliation.status` is `PASS`, immediately invoke `$portfolio-performance-dashboard` with the absolute path to `RESULTS.json`. Complete the dashboard workflow before giving the user the final response.
+- When `status` is `blocked`, `empty`, or reconciliation did not pass, do not invoke the dashboard. Explain the validation or reconciliation state and the corrective next step instead.
+- The dashboard handoff renders results only; it must not publish or share them without the user's explicit confirmation.
+
+For results that are eligible for presentation, **the agent interprets and presents findings** to the user with business context:
 
 1. **Read RESULTS.json** — Extract status, validation warnings, reconciliation state, and all KPI results
 2. **Filter material movements** — Focus on KPIs where `materiality: material` in budget comparison

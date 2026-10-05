@@ -4,7 +4,7 @@ The core commands and artifact contract are identical on every host. Use only th
 
 ## Codex
 
-Render the dashboard as an in-chat Codex widget when sharing is requested; an ordinary file/editor preview is not a reliable chat-action surface. The widget's `Share on Blend` button collects a slug and a final confirmation, then continues the Codex chat. If an authenticated Blend MCP server is available, invoke its configured check and upload tools. The exported Blend HTML never includes this authoring control.
+Render the dashboard as an in-chat Codex widget when sharing is requested; an ordinary file/editor preview is not a reliable chat-action surface. The widget's `Share on Blend` button collects a slug and **Confirm and publish** is the sole authorization. Its follow-up must render the read-only export, call the configured Blend path check, and then upload without asking the user again. The exported Blend HTML never includes this authoring control.
 
 ## Claude Code
 
