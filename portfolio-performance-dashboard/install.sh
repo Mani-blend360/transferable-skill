@@ -153,8 +153,22 @@ install_skill() {
         mv "$install_path" "${install_path}.bak"
     fi
 
-    # Copy skill folder
+    # Copy shared skill files, then overlay platform-specific instructions.
     cp -r "$SCRIPT_DIR" "$install_path"
+    local platform_overlay="$SCRIPT_DIR/platforms/$platform"
+    if [ ! -f "$platform_overlay/SKILL.md" ]; then
+        log_error "Missing instruction overlay for platform: $platform"
+        return 1
+    fi
+    cp "$platform_overlay/SKILL.md" "$install_path/SKILL.md"
+    if [ -d "$platform_overlay/references" ]; then
+        mkdir -p "$install_path/references"
+        cp -R "$platform_overlay/references/." "$install_path/references/"
+    fi
+    if [ -d "$platform_overlay/scripts" ]; then
+        mkdir -p "$install_path/scripts"
+        cp -R "$platform_overlay/scripts/." "$install_path/scripts/"
+    fi
     log_success "Installed to: $install_path"
 
     # Set executable permissions on scripts

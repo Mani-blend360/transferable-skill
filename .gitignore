@@ -3,6 +3,10 @@
 *.codex
 codex/
 
+# Locally installed Claude skills and settings
+.claude/skills/
+.claude/settings.local.json
+
 # Build artifacts
 .pptx-build/
 output/
